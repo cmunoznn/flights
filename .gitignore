@@ -1,0 +1,30 @@
+# Entorno virtual
+.venv/
+
+# Archivos Python temporales
+__pycache__/
+*.py[cod]
+
+# Herramientas de desarrollo
+.pytest_cache/
+.ruff_cache/
+
+# Configuracion local y secretos
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/*
+!logs/.gitkeep
+
+# Datos generados o potencialmente sensibles
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Archivos del sistema y del editor
+.DS_Store
+Thumbs.db
+.vscode/settings.json
