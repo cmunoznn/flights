@@ -1,7 +1,7 @@
 ###V1.  Flight extraction and processing DAG for Airflow
 
 import sys
-from datetime import datetime
+import pendulum
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 
@@ -19,8 +19,8 @@ def flights_extraction() -> None:
 
 with DAG(
     dag_id="flights_api_pipeline",
-    start_date=datetime(2026, 1, 1),
-    schedule="*/5 * * * *",
+    start_date=pendulum.datetime(2026, 1, 1, 19, tz="America/Santiago"),
+    schedule="0 1,7,13,19 * * *",
     catchup=False,
     tags=["flights", "api"],
 ) as dag:
