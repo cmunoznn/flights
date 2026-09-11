@@ -1,4 +1,4 @@
-"""Flight extraction and processing DAG for Airflow"""
+###V1.  Flight extraction and processing DAG for Airflow
 
 import sys
 from datetime import datetime
@@ -10,7 +10,9 @@ sys.path.insert(0, "/opt/airflow/flights")
 
 
 def flights_extraction() -> None:
-    """Pipeline execution function for Airflow DAG"""
+
+    #Pipeline execution function for Airflow DAG
+
     from src.main import execute_pipeline
     execute_pipeline()
 
@@ -22,7 +24,7 @@ with DAG(
     catchup=False,
     tags=["flights", "api"],
 ) as dag:
-    GetSCL-JFK-Flights = PythonOperator(
-        task_id="Get and Process SCL-JFK Flights",
+    GetSCLJFKFlights = PythonOperator(
+        task_id="GetSCLJFKFlights",
         python_callable=flights_extraction,
     )

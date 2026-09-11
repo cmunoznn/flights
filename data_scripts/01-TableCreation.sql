@@ -1,7 +1,7 @@
 
 --DATA FLIGHTS TABLE CREATION
 
-CREATE TABLE IF NOT EXISTS  flights (
+CREATE TABLE IF NOT EXISTS  bronze.flights (
     id BIGSERIAL PRIMARY KEY,
     fr24_id TEXT,
     flight TEXT,
@@ -24,8 +24,14 @@ CREATE TABLE IF NOT EXISTS  flights (
     orig_icao TEXT,
     dest_iata TEXT,
     dest_icao TEXT,
-    eta TIMESTAMPTZ
+    eta TIMESTAMPTZ,
+    recorded_at TIMESTAMPTZ
 );
 
-select * from flights
+
+--DROP TABLE bronze.flights;
+
+select * from bronze.flights
 ;
+
+
