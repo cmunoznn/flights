@@ -20,7 +20,7 @@ def flights_extraction() -> None:
 with DAG(
     dag_id="flights_api_pipeline",
     start_date=pendulum.datetime(2026, 1, 1, 19, tz="America/Santiago"),
-    schedule="0 1,7,13,19 * * *",
+    schedule="0 * * * *",
     catchup=False,
     tags=["flights", "api"],
 ) as dag:

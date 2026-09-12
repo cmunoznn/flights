@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS  bronze.flights (
 
 
 --DROP TABLE bronze.flights;
+--DELETE FROM bronze.flights;
 
 select * from bronze.flights
 ;
