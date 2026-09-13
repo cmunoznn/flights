@@ -76,6 +76,7 @@ def execute_pipeline():
 
         #For logging purposes, printing the HTTP status code and the API response
 
+        print(f"URL: {api_url}")
         print(f"Código HTTP: {response.status_code}")
         response.raise_for_status()
         result = response.json()
