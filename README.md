@@ -2,9 +2,9 @@
 
 Hello!!, in this data engineering project I'm playing around with flights.  I have several ideas to continue but for now let me show you what's done so far:
 
-1) I'm interested in knowing more about a specific flight route, considering those flights departing from Santiago (SCL) to New York (JFK). So I'm getting the live info through the flightradar24 API.
+1) I'm interested in knowing more about a specific flight route, considering those flights departing from LA (LAX) to New York (JFK). So I'm getting the live info through the flightradar24 API.
    
-2) I read the API every 1 hour using an Airflow DAG.  The response data is recorded in a Postgres table in my bronze medallion for further review.
+2) I read the API every 1 hour using an Airflow DAG.  The response data is recorded in a Postgres table in my bronze medallion for further review. At the moment, I'm just collecting the data.
 
 3) To be continued.... (feel free to suggest any idea!)  --> Contact me at cmunoznn@gmail.com
 
@@ -48,11 +48,11 @@ flights/
 The project use the ".env" configuration file containing the followings variables:
 
 ```env
-FLIGHTRADAR_API_URL=https://fr24api.flightradar24.com/api/live/flight-positions/full?routes=SCL-JFK&categories=P
+FLIGHTRADAR_API_URL=https://fr24api.flightradar24.com/api/live/flight-positions/full?routes=LAX-JFK&categories=P
 FLIGHTRADAR_API_TOKEN=Your_token (you can get a sandbox token from https://fr24api.flightradar24.com using the basic pricing plan)
 
 POSTGRES_USER=airflow
-POSTGRES_PASSWORD=tu_password
+POSTGRES_PASSWORD=your_password (It's set during your local installation)
 POSTGRES_HOST=localhost (Used when you execute the code directly from VSC)
 POSTGRES_PORT=5432
 POSTGRES_DB=flights
@@ -117,11 +117,23 @@ The initial table structure can be found in:
 
 data_scripts/01-TableCreation.sql
 
-## "Very Simple" Query Example showing the table:
+## Simple Query Example showing flights amount and average altitude by hour:
 
-SELECT *
+```sql
+SELECT 
+    orig_iata,
+    dest_iata,
+    DATE_TRUNC('hour', recorded_at) AS record_time,
+    COUNT(*) AS flight_amount,
+    ROUND(AVG(alt)::numeric, 2) AS average_altitude
 FROM bronze.flights
-ORDER BY recorded_at DESC;
+GROUP BY
+    orig_iata,
+    dest_iata,
+    DATE_TRUNC('hour', recorded_at)
+ORDER BY
+    record_time DESC;
+```
 
 ## Considerations
 
